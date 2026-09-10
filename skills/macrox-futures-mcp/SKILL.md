@@ -33,7 +33,14 @@ author: MacroX
 
 - 主题观察 / HTML 简报 → `macrox-topic-brief`
 - 品种投资速览 / 一页纸 → `macrox-commodity-tearsheet`
+- 产业链 / 上下游 / 利润代理 → `macrox-industry-chain-map`
+- 品种深度研报 / light-medium-heavy → `macrox-commodity-deep-dive`
+- 席位资金备忘 / 证伪清单 → `macrox-seat-memo`
+- 事件影响 / 冲击窗 / 情景表 → `macrox-event-impact`
+- 早晚报或研报再生产 / 拆章排版 → `macrox-report-studio`
 - 现价、快讯、单次工具问答 → 留在本 Skill / 直接调 MCP
+
+无 MCP 的客户端（部分 Kimi 等不能挂自定义插件）若要跑场景 Skill，**必须安装本 Skill** 并配置 `mcp_config.json`。场景包本身不含取数脚本，只会调用本目录的 `call-node.js` / `call.py`。
 
 ---
 

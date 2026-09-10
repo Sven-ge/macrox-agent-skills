@@ -11,8 +11,13 @@
 | 目录名 (`--skill`) | 说明 | MCP |
 | --- | --- | --- |
 | `macrox-futures-mcp` | 总索引：工具/参数/快问快答 | 共用 `macrox-mcp` |
-| `macrox-topic-brief` | 主题观察简报（框架 + HTML 契约） | 共用 `macrox-mcp` |
-| `macrox-commodity-tearsheet` | 品种投资速览 Tear Sheet（六维 + HTML） | 共用 `macrox-mcp` |
+| `macrox-topic-brief` | 主题观察简报 | 共用 `macrox-mcp` |
+| `macrox-commodity-tearsheet` | 品种投资速览 Tear Sheet | 共用 `macrox-mcp` |
+| `macrox-industry-chain-map` | 有色/黑色/能化产业链地图 | 共用 `macrox-mcp` |
+| `macrox-commodity-deep-dive` | 品种深度研报（light/medium/heavy） | 共用 `macrox-mcp` |
+| `macrox-seat-memo` | 席位资金研究备忘 | 共用 `macrox-mcp` |
+| `macrox-event-impact` | 事件影响 + 情景表 | 共用 `macrox-mcp` |
+| `macrox-report-studio` | 早晚报/研报派生 HTML | 共用 `macrox-mcp` |
 
 ## 安装 Skill（npx）
 
@@ -22,14 +27,19 @@
 # 总索引（工具说明书）
 npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp -g -a cursor -y
 
-# 主题观察简报
+# 场景包（按需，各一条）
 npx skills add Sven-ge/macrox-agent-skills --skill macrox-topic-brief -g -a cursor -y
-
-# 品种投资速览
 npx skills add Sven-ge/macrox-agent-skills --skill macrox-commodity-tearsheet -g -a cursor -y
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-industry-chain-map -g -a cursor -y
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-commodity-deep-dive -g -a cursor -y
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-seat-memo -g -a cursor -y
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-event-impact -g -a cursor -y
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-report-studio -g -a cursor -y
 ```
 
-多客户端可再加 `--agent claude-code` 等。若仓库迁到组织账号，把 `Sven-ge` 换成组织名即可。
+需要 Claude Code 等可再加 `--agent claude-code`。若仓库迁到组织账号，把 `Sven-ge` 换成组织名即可。
+
+**不能挂自定义 MCP 的客户端**（如部分 Kimi）：场景 Skill 不会去用宿主搜索。必须**同时**安装 `macrox-futures-mcp`，并把 Hub Token 写入该目录的 `mcp_config.json`（见下方脚本兜底）。只装场景 Skill 无法取数，会硬停。
 
 ## 配置 MCP（与 Skill 并列）
 
@@ -74,6 +84,18 @@ cp skills/macrox-futures-mcp/mcp_config.example.json \
 - 新 Skill 放在 `skills/macrox-<name>/`，目录名 = `--skill` 参数，**不含版本号**。
 - 与现网共用 `https://mcp.macrox.cn/mcp` 的，标明「共用 macrox-mcp」；独立产品线则在该 Skill 的 `SKILL.md` 写明自己的 MCP 名与 URL。
 - 版本写在各 Skill `SKILL.md` frontmatter；发版可用 git tag（如 `macrox-futures-mcp@1.4.1`），并与 ZIP CDN 同源同版本。
+
+## 开发与同步
+
+本仓只放 **可公开安装的 Skill**。MCP 服务端不在这里。
+
+| 内部仓 | 用途 |
+|--------|------|
+| `期策智能体及mcp/mcp-servers/macrox-mcp` | 对外 MCP（31 工具，现网 `mcp.macrox.cn`） |
+| `期策智能体及mcp/mcp-servers/macrox` | 对内期策 Dify（7 工具，**不要**给本仓 Skill 用） |
+| `期策智能体及mcp/skills/` | Skill 源草稿；定稿后 `bash scripts/sync-skills.sh to-public` 同步到本仓 |
+
+发版：更新对应 `SKILL.md` 的 `version` → 提交 → tag `<name>@<semver>`。约定见 [docs/MULTI_SKILL.md](docs/MULTI_SKILL.md)。
 
 ## 相关链接
 

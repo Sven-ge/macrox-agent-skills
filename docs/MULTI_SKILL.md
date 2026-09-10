@@ -11,9 +11,13 @@ macrox-agent-skills/
     MULTI_SKILL.md          ← 本文
   skills/
     macrox-futures-mcp/          ← 工具总索引
-    macrox-topic-brief/          ← 主题观察简报（框架+HTML）
-    macrox-commodity-tearsheet/  ← 品种 Tear Sheet（六维+HTML）
-    macrox-<short-name>/        ← 后续新增
+    macrox-topic-brief/          ← 主题观察简报
+    macrox-commodity-tearsheet/  ← 品种 Tear Sheet
+    macrox-industry-chain-map/   ← 产业链地图
+    macrox-commodity-deep-dive/  ← 品种深度研报
+    macrox-seat-memo/            ← 席位资金备忘
+    macrox-event-impact/         ← 事件影响
+    macrox-report-studio/        ← 刊物派生
 ```
 
 | 规则 | 说明 |
@@ -42,9 +46,20 @@ npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp -g -a curs
 | 同网关用法包 | 同一 `macrox-mcp` 端点，Skill 只换场景与参数规范 | Token 与 `mcpServers.macrox-mcp` **共用**；多装几个 Skill 不必重复挂 MCP |
 | 独立产品线 | 新端点或不同工具集 | 该 Skill 的 `SKILL.md` / `INSTALL.md` 写明自己的 server 名与 URL；Token 仍由用户在 Hub（或对应产品）自助复制 |
 
-当前 `macrox-futures-mcp` 属于 **同网关用法包**。
+当前 `macrox-futures-mcp` 属于 **同网关用法包**。场景 Skill 无 MCP 时必须调用本包脚本，禁止改用宿主搜索。
 
 会话内若已出现 MacroX MCP 工具，**优先直调 MCP**；Skill 负责何时调用、如何填参；脚本为未挂 MCP 时的兜底。
+
+## 与内部仓
+
+草稿在内部仓 `期策智能体及mcp/skills/`。本仓是分发源。内部仓脚本：
+
+```bash
+bash scripts/sync-skills.sh to-public    # 草稿 → 本仓
+bash scripts/sync-skills.sh from-public  # 本仓 → 草稿
+```
+
+公开 Skill 只对接对外 MCP（`macrox-mcp` / `https://mcp.macrox.cn/mcp`），不对内 7 工具 Dify MCP。
 
 ## 发版
 

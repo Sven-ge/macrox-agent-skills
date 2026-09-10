@@ -1,5 +1,7 @@
 # MCP 工具映射 · macrox-commodity-tearsheet
 
+只调用 MacroX 同名工具（会话 MCP 或 `macrox-futures-mcp` 脚本，见 `data-access.md`）。
+
 | 工具 | 用途 |
 | --- | --- |
 | `ref_list_symbols` | 中文名/模糊名 → `symbol` |
@@ -24,3 +26,4 @@
 - `ticker`：小写+合约月，如 `cu2610`；不确定不要猜，先问或跳过席位明细。  
 - 日线窗口优先 60–120 日；分析类工具避免默认超长窗口。  
 - 解析返回时以 `data` 为准；存在 `answer` 可作叙述参考但仍需核对数字。
+- 调用失败：该维标「未取到 / 数据不足」。禁止用搜索引擎或其他行情源顶替。
