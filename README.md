@@ -1,6 +1,6 @@
 # MacroX Agent Skills
 
-在 Cursor、Claude Code、Cline、Kimi 等客户端里，用这些 Skill 做期货投研：快问快答、主题简报、品种速览、产业链、深度研报、席位备忘、事件影响、早晚报排版。
+在 Cursor、Claude Code、Cline、Kimi 等客户端里，用这些 Skill 做期货投研：快问快答、主题简报、品种速览、产业链、深度研报、席位备忘、事件影响、生成早晚报。
 
 数据一律走 [MacroX MCP](https://mcp.macrox.cn/mcp)。Token 在 [MacroX Hub](https://www.soarcloudtech.com/macrox/mcp/) 登录后于个人中心自行复制，安装过程不会代填密钥。
 
@@ -17,7 +17,7 @@
 | `macrox-commodity-deep-dive` | 「深度研报」并分 light / medium / heavy | 只要一页纸速览（用 tearsheet） |
 | `macrox-seat-memo` | 「席位备忘 / 主力假设 / 证伪清单」+ 合约 | 只听一次龙虎榜口述 |
 | `macrox-event-impact` | 「事件影响 / 冲击窗 / 情景表」 | 要买卖点或交易信号 |
-| `macrox-report-studio` | 把已有早晚报、研究文章拆章排版，并核对现况脚注 | 没有原文却从零写简报 |
+| `macrox-report-studio` | 「写一份早报 / 生成晚报」，按终端板块用行情快讯盯盘等原料写成 HTML | 朗读官方已发布早报（直调 `report_get_paper`） |
 
 选用说明也可看 [docs/MULTI_SKILL.md](docs/MULTI_SKILL.md)。
 

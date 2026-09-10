@@ -37,7 +37,8 @@ author: MacroX
 - 品种深度研报 / light-medium-heavy → `macrox-commodity-deep-dive`
 - 席位资金备忘 / 证伪清单 → `macrox-seat-memo`
 - 事件影响 / 冲击窗 / 情景表 → `macrox-event-impact`
-- 早晚报或研报再生产 / 拆章排版 → `macrox-report-studio`
+- 生成/撰写早报或晚报 HTML → `macrox-report-studio`（原料写稿，不用 `report_get_paper` 成品）
+- 朗读官方/终端已发布早报晚报 → 本 Skill 直调 `report_get_paper`
 - 现价、快讯、单次工具问答 → 留在本 Skill / 直接调 MCP
 
 无 MCP 的客户端（部分 Kimi 等不能挂自定义插件）若要跑场景 Skill，**必须安装本 Skill** 并配置 `mcp_config.json`。场景包本身不含取数脚本，只会调用本目录的 `call-node.js` / `call.py`。
@@ -107,7 +108,8 @@ author: MacroX
 | 龙虎榜 | `seat_get_long_short_board` | `trade_date` + `ticker` |
 | 会员排名 | `seat_get_member_ranks` | `ticker` |
 | 外盘 | `fx_list_symbols` / `fx_get_daily_bars` | `symbol` |
-| 早报 | `report_list_papers` → `report_get_paper` | `report_type=morning` |
+| 读官方早报 | `report_list_papers` → `report_get_paper` | `report_type=morning` |
+| 生成早报/晚报 | 改用 `macrox-report-studio` | 原始 `mkt`/`news`/`watch` 等 |
 | 深度分析 | `anl_run_quant` | `symbol` + `sections` |
 
 ---

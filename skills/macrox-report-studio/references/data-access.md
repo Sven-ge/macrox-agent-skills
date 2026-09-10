@@ -13,14 +13,17 @@
 
 - 宿主自带搜索 / 网页浏览 / 新闻插件（含 Kimi、ChatGPT、通义等内置检索）
 - 其他 MCP、爬虫、付费资讯 API
-- 用模型记忆编造快讯标题、研报结论、价格与涨跌幅
+- 用模型记忆编造快讯标题、价格与涨跌幅
+- **把 `report_get_paper` / `report_list_papers` 的成品（hero、answer、KPI、榜单、要闻）当正文或改写底稿**
 - 为凑「调用次数」而改用上述来源
 
-工具失败或无数据：该条标 **「未取到」**，写入 `notes`（工具名 + 错误摘要）。**不得**换源顶替。
+工具失败或无数据：该条标 **「未取到」**，写入 `data_gaps`（工具名 + 错误摘要）。**不得**换源顶替。
+
+用户只要「官方/终端里那份」早报晚报：停止本工作流，改调 `report_get_paper` 朗读，不要生成本 Skill 的 HTML。
 
 ## 探测 A
 
-看当前会话是否已暴露 MacroX 工具名（`news_*` / `mkt_*` / `report_*` / `research_*` / `struct_*` / `factor_*`）。有则走 A，跳过 B。
+看当前会话是否已暴露 MacroX 工具名（`news_*` / `mkt_*` / `watch_*` / `struct_*` / `seat_*` / `factor_*` / `cal_*` / `ref_*`）。有则走 A，跳过 B。
 
 ## 探测 B（无 MCP 时必须做）
 

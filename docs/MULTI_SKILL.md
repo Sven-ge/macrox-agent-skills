@@ -16,7 +16,7 @@
 | 深度研报 / light·medium·heavy | `macrox-commodity-deep-dive` | 分档多章节 HTML |
 | 席位备忘 / 主力假设 / 证伪 | `macrox-seat-memo` | 四表交叉备忘 HTML |
 | 事件影响 / 冲击窗 / 情景表 | `macrox-event-impact` | 结论卡 + 情景表 HTML |
-| 早晚报或研报拆章排版 | `macrox-report-studio` | 派生 HTML（不重写结论） |
+| 写/生成早报或晚报 | `macrox-report-studio` | 按终端板块、用原始 MCP 生成 HTML |
 
 ## 共用数据入口
 

@@ -46,6 +46,7 @@ author: MacroX
 | 观察 / 简报 / digest / 主题刊物 / HTML 简报 | 进入本工作流 |
 | 「XX 什么价 / 今日快讯」等快问 | **退出本 Skill**，普通回答 |
 | 「品种速览 / 一页纸 / tearsheet」 | 改用 `macrox-commodity-tearsheet` |
+| 「写早报 / 生成晚报 / 盘前盘后简报」 | 改用 `macrox-report-studio` |
 
 ## 工作流总览（5 步）
 

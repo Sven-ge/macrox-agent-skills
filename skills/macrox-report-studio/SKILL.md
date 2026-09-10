@@ -1,45 +1,48 @@
 ---
 name: macrox-report-studio
 description: >-
-  MacroX 早晚报/研报再生产：选定一份 MacroX 早报、晚报或研究文章，拆章、建品种索引，
-  用实时行情/结构做脚注核对后输出派生 HTML。价值在版式与 QA，不重写投研结论。
-  触发：「早晚报转 HTML」「研报再生产」「拆章排版」「报告脚注核对」。
-  不适用：从零写主题简报（topic-brief）、无原文的深度研报（deep-dive）、快问现价。
+  MacroX 期货早晚报生成：按终端 futures-report 已定板块，用行情/快讯/盯盘/结构/席位等原始 MCP 数据
+  写成可读早报或晚报 HTML。禁止把 report_get_paper 的成品文案当正文粘贴或改写。
+  触发：「写一份早报」「今天早报」「生成晚报」「早晚报 HTML」「盘前简报」「盘后晚报」。
+  不适用：朗读官方已发布早报（直调 report_get_paper）、主题观察（topic-brief）、
+  品种一页纸（tearsheet）、无书面交付的现价快问。
 homepage: https://macrox.cn/
-version: 0.1.0
+version: 0.2.0
 author: MacroX
 ---
 
-# macrox-report-studio · 机构刊物派生
+# macrox-report-studio · 机构早晚报生成
 
-把 **已有 MacroX 刊物** 做成可浏览的派生 HTML，并核对近端数据是否已过时。
+按 **终端已定板块** 把原始 MCP 数据写成可读早报/晚报。
 
-> 价值在 **版式契约 + QA**，不是重新发明正文。
+> 价值在 **板块契约 + 用原料写稿**，不是改官方成品、也不是另开一套栏目。
 
 ## 前置
 
-必读：`references/data-access.md` → `qa-checklist.md` → `workflow.md` → `mcp-tools.md` → `output-schema.md` → `html-template.md`。
+必读：`references/data-access.md` → `sections.md` → `workflow.md` → `mcp-tools.md` → `output-schema.md` → `html-template.md` → `qa-checklist.md`。
 
 ## 数据闸门（硬停）
 
-原文必须来自 MacroX：`report_get_paper` / `news_get_article` / 用户粘贴且声明来源为 MacroX 导出。  
-禁止用宿主搜索找研报正文顶替。A/B 见 `data-access.md`。
+只允许 MacroX 原始工具（`mkt_*` / `news_*` / `watch_*` / `struct_*` / `seat_*` / `factor_*` / `cal_*` / `ref_*`）。A/B 见 `data-access.md`。
+
+**禁止**把 `report_get_paper` / `report_list_papers` 的 `hero*`、`answer`、KPI、榜单、要闻当正文或改写底稿。  
+用户要「官方早报原文」→ **退出本 Skill**，直调 `report_get_paper`。
 
 ## 分流
 
 | 信号 | 动作 |
 | --- | --- |
-| 早晚报/研报再生产、拆章、脚注核对 | 进入 |
-| 无指定刊物的主题观察 | `macrox-topic-brief` |
-| 自写品种深度 | `macrox-commodity-deep-dive` |
+| 写/生成早报或晚报、盘前/盘后简报、早晚报 HTML | 进入 |
+| 朗读/打开/官方终端里的那份早报晚报 | 退出，调 `report_get_paper` |
+| 无盘面结构的主题观察 | `macrox-topic-brief` |
+| 单品种一页纸 | `macrox-commodity-tearsheet` |
+| 研究文章拆章排版 | 总 Skill 读 `news_get_article`，或 `macrox-topic-brief` |
 
 ## 工作流摘要
 
-1. 选刊：`report_list_papers` 或 `news_list_articles` → 取 id → 拉详情  
-2. 拆章：按原文小标题切块，保留原意  
-3. 品种索引：从正文提取 `symbol`，`ref_list_symbols` 校验  
-4. 实时脚注：对各索引品种 `mkt_list_overview`（必要再 basis）对照报告日  
-5. QA：过时数字打标「稿内 vs 现况」，**不擅自改原文结论句**  
-6. 派生 HTML  
+1. 定刊：`morning`（默认盘前/「今天早报」）或 `evening`（盘后/晚报）；日期默认最近交易日  
+2. 按 `sections.md` 并行取 **原始** 截面（涨跌榜、快讯、盯盘、早报可选基差；晚报加席位/基差）  
+3. 用原料写稿：Hero 一句定调 +【盘面/驱动/关注/风险】，各板块填证据，缺数标「未取到」  
+4. 填 schema → QA → 单一 HTML  
 
-无可用原文 → 停止，请用户指定日期/类型或文章 id。
+无行情截面且无快讯 → 停止，不编造盘面。
