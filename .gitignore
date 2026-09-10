@@ -1,0 +1,17 @@
+# 依赖与缓存
+node_modules/
+.pnpm-store/
+__pycache__/
+*.pyc
+.DS_Store
+
+# 密钥（只允许 example）
+**/mcp_config.json
+.env
+.env.*
+!.env.example
+
+# 编辑器
+.idea/
+.vscode/
+*.swp
