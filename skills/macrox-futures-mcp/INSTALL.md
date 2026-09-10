@@ -1,41 +1,39 @@
-# MacroX 期货投研工具 · Skill 安装说明
+# MacroX 期货投研工具 · 安装说明
 
-官网：https://macrox.cn/
+官网：https://macrox.cn/  
+Hub（复制 Token）：https://www.soarcloudtech.com/macrox/mcp/  
+ZIP / 安装引导：https://www.soarcloudtech.com/macrox/mcp/guides/SKILL_INSTALL_GUIDE.html
 
-- Hub：https://www.soarcloudtech.com/macrox/mcp/
-- 安装引导（ZIP / Agent 剧本）：https://www.soarcloudtech.com/macrox/mcp/guides/SKILL_INSTALL_GUIDE.html
-- 技能包 ZIP：https://images.macrox.cn/macrox-analysis/mcp/macrox-mcp-skill-1.4.1.zip
-
-推荐用 **npx skills** 安装；ZIP / 拷贝目录为兜底。Token 请在 Hub 个人中心自行生成并复制。
-
-## 推荐：npx skills
-
-在本仓库根（或已发布的 GitHub 地址）执行：
+## npx 安装
 
 ```bash
-# 推荐：让 CLI 询问要装到哪个客户端
 npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp
-
-# 已知客户端时再指定，例如 Claude Code：
-# npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp -g -a claude-code -y
 ```
 
-`-a` 是目标 Agent（`cursor` / `claude-code` / `codex` / `cline` 等），不要默认写死 `cursor`。`-g` 为全局，`-y` 为跳过确认。
+CLI 会询问装到哪个客户端。若已确定客户端并希望跳过提问：
 
-## 兜底：手动拷贝
+```bash
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp -g -a claude-code -y
+```
 
-将 `macrox-futures-mcp` 目录放到 Agent 可读的 skills 路径：
+`-a` 换成你的客户端（`cursor`、`claude-code`、`codex`、`cline` 等）。`-g` 为全局，`-y` 跳过确认。
+
+其他场景 Skill 把 `--skill` 换成对应名称即可，列表见仓库根 README。
+
+## 手动拷贝
+
+将本目录放到客户端可读的 skills 路径：
 
 ```bash
 mkdir -p <skills-root>/macrox-futures-mcp
 cp -R . <skills-root>/macrox-futures-mcp/
 ```
 
-建议覆盖拷贝。勿外发含真实 Token 的 `mcp_config.json`。
+不要把含真实 Token 的 `mcp_config.json` 发给他人。
 
-## 配置 Token（Skill 脚本，可选）
+## 配置 Token（仅脚本需要）
 
-仅在未挂载 MCP、需用 `call-node.js` / `call.py` 时需要。复制 `mcp_config.example.json` → `mcp_config.json`，填写 Hub 复制的 Token。脚本通过 `?token=` 鉴权。
+客户端未挂 MCP、需要 `call-node.js` / `call.py` 时：复制 `mcp_config.example.json` → `mcp_config.json`，填入 Hub Token。脚本会拼 `?token=`。
 
 ```json
 {
@@ -44,9 +42,9 @@ cp -R . <skills-root>/macrox-futures-mcp/
 }
 ```
 
-## 挂载宿主 MCP（与 Skill 并列）
+## 挂载 MCP
 
-在 Cursor / Claude Desktop / Cline 等宿主的 MCP 配置中合并（勿清空其他 server）：
+在客户端 MCP 配置中合并（不要清空其他 server）：
 
 ```json
 {
@@ -59,7 +57,7 @@ cp -R . <skills-root>/macrox-futures-mcp/
 }
 ```
 
-生产须把 Token 写在 `url` 的 `?token=` 中。若已配置 `macrox-mcp`，可跳过本步。
+Token 写在 `url` 的 `?token=` 中。若已配置 `macrox-mcp`，可跳过。
 
 ## 验证
 
@@ -67,9 +65,9 @@ cp -R . <skills-root>/macrox-futures-mcp/
 node -e "require('./call-node.js').call('mkt_list_overview',{symbols:'CU',limit:1}).then(console.log)"
 ```
 
-会话内亦可直接调用同名 MCP 工具（挂载生效后）。
+已挂载 MCP 时，可在会话里直接调用同名工具。
 
 ## 环境
 
-- 出网访问 `mcp.macrox.cn`（及 ZIP 场景下的 `images.macrox.cn`）
+- 可访问 `mcp.macrox.cn`（ZIP 安装还需 `images.macrox.cn`）
 - 脚本方案：Node.js 16+ 或 Python 3.9+
