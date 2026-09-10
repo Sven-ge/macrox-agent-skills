@@ -13,14 +13,14 @@
 在本仓库根（或已发布的 GitHub 地址）执行：
 
 ```bash
-npx skills add Sven-ge/macrox-agent-skills \
-  --skill macrox-futures-mcp \
-  --agent cursor \
-  --global \
-  --yes
+# 推荐：让 CLI 询问要装到哪个客户端
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp
+
+# 已知客户端时再指定，例如 Claude Code：
+# npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp -g -a claude-code -y
 ```
 
-需要 Claude Code 等可再加 `--agent claude-code`。
+`-a` 是目标 Agent（`cursor` / `claude-code` / `codex` / `cline` 等），不要默认写死 `cursor`。`-g` 为全局，`-y` 为跳过确认。
 
 ## 兜底：手动拷贝
 

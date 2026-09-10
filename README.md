@@ -21,23 +21,36 @@
 
 ## 安装 Skill（npx）
 
-按需安装（**不要**默认 `--skill '*'`）：
+按需安装（**不要**默认 `--skill '*'`）。**不要**默认写成 `-a cursor`：那只链到 Cursor，Claude Code / Codex / Cline / Kimi 等不会装到对应目录。
+
+推荐先跑交互安装，CLI 会询问客户端：
 
 ```bash
-# 总索引（工具说明书）
-npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp -g -a cursor -y
-
-# 场景包（按需，各一条）
-npx skills add Sven-ge/macrox-agent-skills --skill macrox-topic-brief -g -a cursor -y
-npx skills add Sven-ge/macrox-agent-skills --skill macrox-commodity-tearsheet -g -a cursor -y
-npx skills add Sven-ge/macrox-agent-skills --skill macrox-industry-chain-map -g -a cursor -y
-npx skills add Sven-ge/macrox-agent-skills --skill macrox-commodity-deep-dive -g -a cursor -y
-npx skills add Sven-ge/macrox-agent-skills --skill macrox-seat-memo -g -a cursor -y
-npx skills add Sven-ge/macrox-agent-skills --skill macrox-event-impact -g -a cursor -y
-npx skills add Sven-ge/macrox-agent-skills --skill macrox-report-studio -g -a cursor -y
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-topic-brief
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-commodity-tearsheet
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-industry-chain-map
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-commodity-deep-dive
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-seat-memo
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-event-impact
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-report-studio
 ```
 
-需要 Claude Code 等可再加 `--agent claude-code`。若仓库迁到组织账号，把 `Sven-ge` 换成组织名即可。
+| 参数 | 含义 |
+| --- | --- |
+| `--skill <name>` | 本仓里要装的 Skill 目录名 |
+| `-g` / `--global` | 装到用户全局（各项目都能用）；不加则装到当前项目 |
+| `-a` / `--agent` | 目标客户端，如 `cursor`、`claude-code`、`codex`、`cline`；可写多次；`'*'` 表示本机已检测到的全部 |
+| `-y` / `--yes` | 跳过确认，适合脚本 |
+
+已知客户端、要跳过提问时，把 `<agent>` 换成自己的：
+
+```bash
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp -g -a <agent> -y
+# 例：-a claude-code    -a cursor    -a codex    --agent '*'
+```
+
+若仓库迁到组织账号，把 `Sven-ge` 换成组织名即可。
 
 **不能挂自定义 MCP 的客户端**（如部分 Kimi）：场景 Skill 不会去用宿主搜索。必须**同时**安装 `macrox-futures-mcp`，并把 Hub Token 写入该目录的 `mcp_config.json`（见下方脚本兜底）。只装场景 Skill 无法取数，会硬停。
 
@@ -69,7 +82,8 @@ Skill 负责场景与填参；会话内工具调用优先走已挂载的 MCP。
 
 ```bash
 cp skills/macrox-futures-mcp/mcp_config.example.json \
-   ~/.cursor/skills/macrox-futures-mcp/mcp_config.json
+   ~/.agents/skills/macrox-futures-mcp/mcp_config.json
+# 若该客户端链到 ~/.cursor/skills 或 ~/.claude/skills，把同一文件拷到对应目录
 # 编辑 api_token
 ```
 

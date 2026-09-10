@@ -30,14 +30,17 @@ macrox-agent-skills/
 ## 安装粒度
 
 ```bash
-# 推荐：按需安装
-npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp -g -a cursor -y
+# 推荐：按需安装；不加 -a，让 CLI 询问客户端
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp
+
+# 指定客户端并跳过确认（把 <agent> 换成 cursor / claude-code / codex / cline 等）
+# npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp -g -a <agent> -y
 
 # 不推荐作为产品默认：一次装全部
-# npx skills add Sven-ge/macrox-agent-skills --skill '*' -g -a cursor -y
+# npx skills add Sven-ge/macrox-agent-skills --skill '*' -g --agent '*' -y
 ```
 
-产品页 / Hub 卡片应为 **每个 Skill 一条独立命令**。
+产品页 / Hub 卡片应为 **每个 Skill 一条独立命令**，且 **不要写死 `-a cursor`**。
 
 ## 与 MCP 的关系
 
@@ -72,4 +75,4 @@ bash scripts/sync-skills.sh from-public  # 本仓 → 草稿
 
 1. 在 `skills/` 下新建 `macrox-<short-name>/`，至少包含 `SKILL.md`。
 2. 在根 `README.md` 的「当前 Skills」表增加一行（说明 + MCP 类型）。
-3. 本地验证：`npx skills add <本地路径或远程> --skill macrox-<short-name> -g -a cursor -y`。
+3. 本地验证：`npx skills add <本地路径或远程> --skill macrox-<short-name>`（按本机客户端选择 `-a`）。
