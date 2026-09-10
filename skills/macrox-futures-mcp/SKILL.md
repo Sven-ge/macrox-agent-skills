@@ -29,6 +29,12 @@ author: MacroX
 
 跨场景时仍以 `/references/` 为准；先判场景再加载对应文档，避免一次读完全部参考。
 
+**书面交付分流**（勿用本总 Skill 硬凑长报告）：
+
+- 主题观察 / HTML 简报 → `macrox-topic-brief`
+- 品种投资速览 / 一页纸 → `macrox-commodity-tearsheet`
+- 现价、快讯、单次工具问答 → 留在本 Skill / 直接调 MCP
+
 ---
 
 ## 首次使用

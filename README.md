@@ -10,21 +10,26 @@
 
 | 目录名 (`--skill`) | 说明 | MCP |
 | --- | --- | --- |
-| `macrox-futures-mcp` | 期货投研（行情/资讯/结构/席位/研报/量化等） | 共用 `macrox-mcp` |
+| `macrox-futures-mcp` | 总索引：工具/参数/快问快答 | 共用 `macrox-mcp` |
+| `macrox-topic-brief` | 主题观察简报（框架 + HTML 契约） | 共用 `macrox-mcp` |
+| `macrox-commodity-tearsheet` | 品种投资速览 Tear Sheet（六维 + HTML） | 共用 `macrox-mcp` |
 
 ## 安装 Skill（npx）
 
+按需安装（**不要**默认 `--skill '*'`）：
+
 ```bash
-npx skills add Sven-ge/macrox-agent-skills \
-  --skill macrox-futures-mcp \
-  --agent cursor \
-  --global \
-  --yes
+# 总索引（工具说明书）
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-futures-mcp -g -a cursor -y
+
+# 主题观察简报
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-topic-brief -g -a cursor -y
+
+# 品种投资速览
+npx skills add Sven-ge/macrox-agent-skills --skill macrox-commodity-tearsheet -g -a cursor -y
 ```
 
 多客户端可再加 `--agent claude-code` 等。若仓库迁到组织账号，把 `Sven-ge` 换成组织名即可。
-
-**不要**默认使用 `--skill '*'`；按产品需要点名安装。
 
 ## 配置 MCP（与 Skill 并列）
 

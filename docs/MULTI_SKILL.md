@@ -10,8 +10,10 @@ macrox-agent-skills/
   docs/
     MULTI_SKILL.md          ← 本文
   skills/
-    macrox-futures-mcp/     ← 第一支（期货投研）
-    macrox-<short-name>/    ← 后续新增
+    macrox-futures-mcp/          ← 工具总索引
+    macrox-topic-brief/          ← 主题观察简报（框架+HTML）
+    macrox-commodity-tearsheet/  ← 品种 Tear Sheet（六维+HTML）
+    macrox-<short-name>/        ← 后续新增
 ```
 
 | 规则 | 说明 |
